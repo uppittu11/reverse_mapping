@@ -1,0 +1,3 @@
+# ignore hoomdxml files for testing 
+*.hoomdxml
+*.gro
