@@ -2,16 +2,22 @@ import mdtraj as md
 import mbuild as mb
 import numpy as np
 
-def load_original(filename, scaling_factor=1):
-    configuration = md.load(filename)
-    configuration = configuration.atom_slice(
-                        ref.top.select('not name water'))
-    configuration.xyz *= .6 
-    configuration.unitcell_lengths *= .6
+def load_original(filename, scaling_factor=1, cg_unit_conversion=0.6):
+    conf = md.load(filename)
+    conf = conf.atom_slice(conf.top.select('not name water'))
 
-    configuration.xyz[:,:,:2] *= 1.0
-    configuration.unitcell_lengths[:,:2] *= 1.0
+    conf.xyz *= cg_unit_conversion
+    conf.unitcell_lengths *= cg_unit_conversion
 
-    configuration.center_coordinates()
+    if prod(np.array(scaling_factor).shape) == 1:
+        conf.xyz *= scaling_factor
+        conf.unitcell_lengths *= 1.0
+    elif prod(np.array(scaling_factor).shape) == 3:
+        conf.xyz = conf.xyz * scaling_factor[np.newaxis, np.newaxis, :]
+        conf.unitcell_lengths = conf.unitcell_lengths * 
+                                    scaling_factor[np.newaxis, :]
 
-    return configuration
+    conf = conf.center_coordinates()
+
+    return conf
+
