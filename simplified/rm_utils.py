@@ -9,15 +9,16 @@ def load_original(filename, scaling_factor=1, cg_unit_conversion=0.6):
     conf.xyz *= cg_unit_conversion
     conf.unitcell_lengths *= cg_unit_conversion
 
-    if prod(np.array(scaling_factor).shape) == 1:
+    if np.prod(np.array(scaling_factor).shape) == 1:
         conf.xyz *= scaling_factor
         conf.unitcell_lengths *= 1.0
-    elif prod(np.array(scaling_factor).shape) == 3:
+    elif np.prod(np.array(scaling_factor).shape) == 3:
         conf.xyz = conf.xyz * scaling_factor[np.newaxis, np.newaxis, :]
-        conf.unitcell_lengths = conf.unitcell_lengths * 
-                                    scaling_factor[np.newaxis, :]
+        conf.unitcell_lengths = (conf.unitcell_lengths * 
+                                    scaling_factor[np.newaxis, :])
 
     conf = conf.center_coordinates()
 
     return conf
+
 
