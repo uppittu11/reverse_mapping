@@ -1,0 +1,10 @@
+README.md
+setup.py
+reverse_mapping.egg-info/PKG-INFO
+reverse_mapping.egg-info/SOURCES.txt
+reverse_mapping.egg-info/dependency_links.txt
+reverse_mapping.egg-info/requires.txt
+reverse_mapping.egg-info/top_level.txt
+reverse_mapping/simplified/__init__.py
+reverse_mapping/simplified/molecules.py
+reverse_mapping/simplified/rm_utils.py
