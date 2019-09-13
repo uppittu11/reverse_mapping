@@ -3,3 +3,5 @@
 *.gro
 *.code-workspace
 *.vscode*
+*pyc
+*__pycache__*
