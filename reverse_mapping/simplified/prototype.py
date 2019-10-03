@@ -9,8 +9,8 @@ class Prototype(object):
     Class to store information about each molecule type.
 
     Stores information about the indices for the heads/tails to be used
-    to classify lipid moleules. Also stores the location of atomistic
-    prototypes to be used later
+    to classify lipid moleules. Also stores the atomistic
+    prototypes corresponding to the compound
 
     Args:
     -----------
@@ -22,7 +22,7 @@ class Prototype(object):
         The index for the head bead of the atomistic lipid
     tail : int
         The index for the terminal tail bead of the CG lipid
-    atomlist : list, optional, default=[]
+    atomlist : list
         A list of atoms in the CG molecule. Can be used to identify
         CG atoms
     compound : mb.Compound

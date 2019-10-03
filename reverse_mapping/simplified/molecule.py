@@ -5,19 +5,15 @@ class Molecule(object):
     """
     Class to store information about each molecule type.
 
-    Stores information about the indices for the heads/tails to be used
-    to classify lipid moleules. Also stores the location of atomistic
-    prototypes to be used later
-
     Arg:
     -----------
-    name : string, optional, default=""
+    name : string
         The name of the molecule
-    pos : arraylike, optional, default=0
+    pos : arraylike, shape=(3)
         The position of the molecule. This is typically where the head
         of the lipid is placed.
-    prototype : str, optional, default=""
-        The location of the atomistic prototype structure
+    prototype : mb.Compound
+        The atomistic compound representing the molecule
     
     """
 
