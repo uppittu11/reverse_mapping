@@ -1,8 +1,5 @@
-import os
-import glob
 import numpy as np
 import mbuild as mb
-import mdtraj as md
 
 class Molecule(object):
     """
@@ -16,27 +13,26 @@ class Molecule(object):
     -----------
     name : string, optional, default=""
         The name of the molecule
-    cg_head : int, optional, default=0
-        The index for the head bead of the CG lipid
-    aa_head : int, optional, default=0
-        The index for the head bead of the atomistic lipid
-    tail : list, optional, default=[0]
-        The indices for the terminal tail beads of the CG lipid
-    atomlist : list, optional, default=[]
-        A list of atoms in the CG molecule. Can be used to identify
-        CG atoms
+    pos : arraylike, optional, default=0
+        The position of the molecule. This is typically where the head
+        of the lipid is placed.
     prototype : str, optional, default=""
         The location of the atomistic prototype structure
     
     """
 
-    def __init__(self, name="", head=0, tail=0, atomlist=[],
-                    prototype=""):
+    def __init__(self, name, pos, prototype):
+        def _validate_inputs():
+            assert isinstance(name, str)
+            pos = np.array(pos)
+            assert isinstance(pos, np.array())
+            assert pos.shape[-1] == 3
+            assert isinstance(prototype, mb.Compound)
+
+        _validate_inputs()
         self._name = name
-        self._head = head
-        self._tail = tail
-        self._atomlist = atomlist
-        self._prototype = prototype
+        self._pos = np.array(pos)
+        self._prototype = mb.clone(prototype)
 
     @property
     def name(self):
@@ -44,35 +40,18 @@ class Molecule(object):
     
     @name.setter
     def name(self, name):
-        assert type(name) == str
+        assert isinstance(name, str)
         self._name = name
     
     @property
-    def head(self):
-        return self._head
+    def pos(self):
+        return self._pos
     
-    @head.setter
-    def head(self, index):
-        index = int(index)
-        self._head = index
-    
-    @property
-    def tail(self):
-        return self._tail
-    
-    @tail.setter
-    def tail(self, index):
-        index = list(index)
-        self._head = index
-    
-    @property
-    def atomlist(self):
-        return self._atomlist
-    
-    @atomlist.setter
-    def atomlist(self, atomlist):
-        assert type(atomlist) == list
-        self._atomlist = atomlist
+    @pos.setter
+    def pos(self, pos):
+        assert isinstance(pos, np.array())
+        assert pos.shape[-1] == 3
+        self._pos = np.array(pos)
     
     @property
     def prototype(self):
@@ -81,4 +60,4 @@ class Molecule(object):
     @prototype.setter
     def prototype(self, compound):
         assert type(compound) == mb.Compound
-        self.prototype = mb.clone(compound)
+        self.prototype = mb.clone(compound)  
