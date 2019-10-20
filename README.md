@@ -1,4 +1,4 @@
-# reverse_mapping
+# reverse_mapping [WIP]
 Reverse mapping scheme for multi-scale molecular dynamics. Converts coarse-grained (CG) systems to the atomistic level.
 
 ## Simplified Algorithm
